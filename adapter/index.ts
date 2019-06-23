@@ -3,7 +3,7 @@ interface Logger {
 }
 
 class FileLogger implements Logger {
-  async info(message: string): Promise<void> {
+  public async info(message: string): Promise<void> {
     console.info(message);
     console.info('This Message was saved with FileLogger');
   }
@@ -14,7 +14,7 @@ interface CloudLogger {
 }
 
 class AwsLogger implements CloudLogger {
-  async sendToServer(message: string, type: string): Promise<void> {
+  public async sendToServer(message: string, type: string): Promise<void> {
     console.info(message);
     console.info('This Message was saved with AwsLogger');
   }
@@ -27,7 +27,7 @@ class AdapterLogger implements Logger {
     this.cloudLogger = cloudLogger;
   }
 
-  async info(message: string): Promise<void> {
+  public async info(message: string): Promise<void> {
     await this.cloudLogger.sendToServer(message, 'info');
   }
 }
@@ -40,7 +40,7 @@ class NotificationService {
     this.logger = logger;
   }
 
-  async send(message: string): Promise<void> {
+  public async send(message: string): Promise<void> {
     //... Implementation
     await this.logger.info(`Notification sended: ${message}`);
   }
